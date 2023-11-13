@@ -19,12 +19,16 @@ class SettingsLocalDataSourcesImpl implements SettingsLocalDataSources {
 
   @override
   Future<Settings> getSettings() async {
-    final isCached = await prefs.isContainsKey(PreferenceKeys.settings);
-    if (isCached) {
-      final data = await prefs.getString(PreferenceKeys.settings);
-      final settings = json.decode(data);
-      return Settings.fromJson(settings);
-    } else {
+    try {
+      final isCached = await prefs.isContainsKey(PreferenceKeys.settings);
+      if (isCached) {
+        final data = await prefs.getString(PreferenceKeys.settings);
+        final settings = json.decode(data);
+        return Settings.fromJson(settings);
+      } else {
+        throw const CacheException("Chached data not found");
+      }
+    } catch (e) {
       throw const CacheException("Chached data not found");
     }
   }

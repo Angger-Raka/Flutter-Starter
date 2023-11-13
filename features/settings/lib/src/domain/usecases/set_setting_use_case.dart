@@ -4,23 +4,41 @@ import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:settings/settings.dart';
 
-class SetSettingUseCase {
+mixin SetSettings {
+  FutureOr<Either<GenericException, bool>> save({
+    required Settings settings,
+  });
+  FutureOr<Either<GenericException, bool>> setLanguage({
+    required Language language,
+  });
+  FutureOr<Either<GenericException, bool>> setAppTheme({
+    required AppTheme appTheme,
+  });
+}
+
+class SetSettingUseCase implements SetSettings {
   final SettingsRepository repository;
 
   SetSettingUseCase(this.repository);
 
-  FutureOr<Either<GenericException, bool>> save(
-      {required Settings settings}) async {
+  @override
+  FutureOr<Either<GenericException, bool>> save({
+    required Settings settings,
+  }) async {
     return await repository.saveSettings(settings);
   }
 
-  FutureOr<Either<GenericException, bool>> setLanguage(
-      {required Language language}) async {
+  @override
+  FutureOr<Either<GenericException, bool>> setLanguage({
+    required Language language,
+  }) async {
     return await repository.setLanguage(language);
   }
 
-  FutureOr<Either<GenericException, bool>> setAppTheme(
-      {required AppTheme appTheme}) async {
+  @override
+  FutureOr<Either<GenericException, bool>> setAppTheme({
+    required AppTheme appTheme,
+  }) async {
     return await repository.setAppTheme(appTheme);
   }
 }
