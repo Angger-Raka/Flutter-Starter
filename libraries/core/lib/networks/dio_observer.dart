@@ -40,7 +40,10 @@ class AppBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     _logger.log(
       Level.info,
-      'onChange -- ${bloc.runtimeType},\n currentState: ${change.currentState}\n nextState: ${change.nextState}',
+      '''
+onChange -- ${bloc.runtimeType},
+currentState: ${change.currentState},
+nextState: ${change.nextState},''',
       stackTrace: StackTrace.empty,
     );
   }
@@ -50,7 +53,10 @@ class AppBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
     _logger.log(
       Level.info,
-      'onTransition -- ${bloc.runtimeType},\n currentState: ${transition.currentState}\n nextState: ${transition.nextState}}',
+      '''
+onTransition -- ${bloc.runtimeType},
+currentState: ${transition.currentState},
+event: ${transition.event},''',
       stackTrace: StackTrace.empty,
     );
   }
